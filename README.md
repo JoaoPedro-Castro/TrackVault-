@@ -1,7 +1,6 @@
 <div align="center">
  
-  <img src="./imagens/capaReadme.jpg" alt="Banner do Projeto" width="100%"/>
-
+<img src="./public/assets/imagens/capaReadme.jpg" alt="Banner do Projeto" width="100%"/>
   <h1>🎧 TrackVault </h1>
 
   <p>
