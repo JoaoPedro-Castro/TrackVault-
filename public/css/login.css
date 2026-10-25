@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #0a0a0c;
+}
+
+.container-login {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.lado-esquerdo,
+.lado-direito {
+    width: 50%;
+    height: 100vh;
+}
+
+.lado-esquerdo {
+    background-image: url("../assets/ladoEsquerdo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-trackvault {
+    width: 60%;
+    max-width: 360px;
+    min-width: 220px;
+    display: block;
+}
+
+.lado-direito {
+    background-color: #0a0a0c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.card-login {
+    width: 100%;
+    max-width: 420px;
+    background-color: #0f0f12;
+    border: 1px solid #1d1d1f;
+    border-radius: 8px;
+    padding: 32px;
+}
+
+.card-login h2 {
+    color: #f2f2f2;
+    margin-bottom: 22px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.alerta_erro {
+    min-height: 24px;
+    margin-bottom: 8px;
+}
+
+.card_erro {
+    display: none;
+    color: #ff7d7d;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.formulario input {
+    width: 100%;
+    min-height: 45px;
+    border-radius: 4px;
+    border: 1px solid #2a2a2a;
+    background: #121215;
+    color: #d6d6d6;
+    padding: 10px 12px;
+    outline: none;
+    font-size: 14px;
+}
+
+.formulario input::placeholder {
+    color: #a7a7a7;
+}
+
+.botao {
+    width: 100%;
+    min-height: 45px;
+    border-radius: 4px;
+    border: none;
+    background: #00E5FF;
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.botao:hover {
+    box-shadow: 0 0 15px #00E5FF;
+    opacity: 0.96;
+}
+
+.loading-div {
+    display: none;
+    justify-content: center;
+    margin-top: 14px;
+}
+
+#loading-gif {
+    width: 40px;
+}
+
+#div_erros_login {
+    margin-top: 10px;
+    color: #f0f0f0;
+    text-align: center;
+    font-size: 13px;
+}
