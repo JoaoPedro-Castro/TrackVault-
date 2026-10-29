@@ -16,34 +16,43 @@ body {
     height: 100vh;
 }
 
-.lado-esquerdo,
-.lado-direito {
-    width: 50%;
-    height: 100vh;
-}
+
+
 
 .lado-esquerdo {
+    width: 45%;
+    height: 100vh;
+    flex-shrink: 0;
+
     background-image: url("../assets/ladoEsquerdo.jpg");
-    background-size: cover;
+    background-size: 120% auto;
     background-position: center;
+    background-repeat: no-repeat;
+
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.lado-direito {
+    width: 55%;
+    height: 100vh;
+    flex-shrink: 0;
+
+    background-color: #0a0a0c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 }
 
 .logo-trackvault {
     width: 60%;
     max-width: 360px;
     min-width: 220px;
+    height: auto;
     display: block;
-}
-
-.lado-direito {
-    background-color: #0a0a0c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
 }
 
 .card-login {
