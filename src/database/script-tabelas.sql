@@ -6,53 +6,50 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
+CREATE DATABASE trackvault;
+USE trackvault;
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    tipo_usuario VARCHAR(20) NOT NULL DEFAULT 'usuario',
+    CONSTRAINT chk_tipo_usuario
+    CHECK (tipo_usuario IN ('usuario', 'admin'))
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+CREATE TABLE vertente (
+    id_vertente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    descricao VARCHAR(255)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE produtor (
+    id_produtor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL UNIQUE
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+CREATE TABLE track (
+    id_track INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150) NOT NULL,
+    link VARCHAR(500) NOT NULL,
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fk_produtor INT NOT NULL,
+    fk_vertente INT NOT NULL,
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	temperatura DECIMAL,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+    CONSTRAINT fk_track_produtor
+    FOREIGN KEY (fk_produtor)
+    REFERENCES produtor(id_produtor),
+
+    CONSTRAINT fk_track_vertente
+    FOREIGN KEY (fk_vertente)
+    REFERENCES vertente(id_vertente)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+INSERT INTO vertente (nome, descricao) VALUES
+('Tech House', 'Vertente de música eletrônica'),
+('Techno', 'Vertente de música eletrônica'),
+('Melodic Techno', 'Vertente melódica de Techno'),
+('Hard Techno', 'Vertente de música eletrônica');
+

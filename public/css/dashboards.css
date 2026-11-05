@@ -1,5 +1,10 @@
+/* ==========================================
+   PÁGINA MURAL / DASHBOARD
+   Estilos da área logada (avisos, cards, gráficos e menu lateral).
+========================================== */
 /* pagina mural */
 
+/* Fonte principal usada no painel */
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
@@ -8,6 +13,9 @@ body {
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ==========================================
+   ESTILOS DE PUBLICAÇÕES/AVISOS
+========================================== */
 .label-captura {
   display: flex;
   justify-content: center;
@@ -20,6 +28,7 @@ body {
 }
 
 .dash-right .avisos .container {
+  /* flex-direction: column empilha elementos */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,6 +59,7 @@ body {
 }
 
 .dash-right .avisos .div-form button {
+  /* botão de enviar/publicar */
   cursor: pointer;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border: 0;
@@ -76,6 +86,7 @@ body {
 }
 
 .publicacao {
+  /* card de publicação exibido no feed */
   display: flex;
   flex-wrap: wrap;
   align-content: stretch;
@@ -101,6 +112,7 @@ body {
 }
 
 .div-buttons {
+  /* botões alinhados à direita */
   display: flex;
   justify-content: flex-end;
 }
@@ -109,6 +121,9 @@ body {
   margin-left: 30px;
 }
 
+/* ==========================================
+   ÁREA PRINCIPAL DE DASH / GRÁFICOS
+========================================== */
 /* pagina graficos */
 
 .dash-header {
@@ -116,6 +131,7 @@ body {
 }
 
 .dash {
+  /* left: 20% compensa a sidebar fixa */
   width: 80%;
   position: relative;
   top: 0;
@@ -143,6 +159,7 @@ body {
 }
 
 .parametros-alerta {
+  /* régua de alertas em linha */
   display: flex;
   width: 100%;
 }
@@ -187,6 +204,7 @@ body {
 }
 
 .cards {
+  /* container dos cards de indicadores */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -197,6 +215,7 @@ body {
 }
 
 .card-aquario {
+  /* card individual de leitura/estado */
   margin: 2%;
   min-width: 40%;
   max-width: 50%;
@@ -259,6 +278,7 @@ body {
 }
 
 .btns-dash {
+  /* grupo de botões para alternar gráficos */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,6 +288,7 @@ body {
 }
 
 .graph {
+  /* área que contém os canvas dos gráficos */
   width: 70%;
   margin: auto;
   padding-top: 10px;
@@ -280,6 +301,7 @@ body {
 }
 
 .btn-chart {
+  /* botão padrão dos gráficos */
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border: 0;
   font-weight: 600;
@@ -324,9 +346,13 @@ canvas {
   height: 100% !important;
 }
 
+/* ==========================================
+   MENU LATERAL E NAVEGAÇÃO DA DASHBOARD
+========================================== */
 /* PAGINA DOS GRÁFICOS 2023-2026 */
 
 .janela {
+  /* display:flex organiza sidebar e conteúdo */
   display: flex;
   /* width: 100vw; */
 }
@@ -337,6 +363,7 @@ canvas {
 }
 
 .header-left {
+  /* position: fixed mantém menu lateral sempre visível */
   position: fixed;
   top: 0;
   left: 0;
@@ -352,6 +379,7 @@ canvas {
 }
 
 .dash-right {
+  /* conteúdo principal deslocado para a direita da sidebar */
   display: flex;
   width: 70%;
   height: fit-content;
@@ -384,6 +412,7 @@ canvas {
 }
 
 .btn-nav {
+  /* botão ativo */
   width: 40%;
   color: white;
   background-color: #e6005a;
@@ -393,6 +422,7 @@ canvas {
 }
 
 .btn-nav-white {
+  /* botão secundário */
   width: 40%;
   background-color: white;
   border: 3px solid #e6005a;
@@ -414,6 +444,7 @@ canvas {
 }
 
 .btn-logout {
+  /* botão de logout */
   margin: 0;
   padding: 0;
   width: 20%;

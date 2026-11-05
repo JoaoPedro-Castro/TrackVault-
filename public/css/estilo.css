@@ -1,5 +1,10 @@
+/* ==========================================
+   ESTE ARQUIVO É DO TEMPLATE ORIGINAL AQUATECH
+   Muitas regras ainda são usadas por páginas legadas.
+========================================== */
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* CONFIGURAÇÕES GERAIS DA PÁGINA */
 body {
   margin: 0;
   padding: 0;
@@ -7,6 +12,7 @@ body {
   background-color: black;
 }
 
+/* Variáveis CSS reutilizadas para alturas das seções */
 :root {
   --tamanho-header: 80px;
   --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
@@ -15,18 +21,21 @@ body {
   --tamanho-footer: 65px;
 }
 
+/* Container padrão centralizado */
 .container {
   display: flex;
   width: 80%;
   margin: auto;
 }
 
+/* CABEÇALHO LEGADO (AQUATECH) */
 .header {
   height: var(--tamanho-header);
   border-bottom: 2px solid #32b9cd;
 }
 
 .header .container {
+  /* align-items centraliza verticalmente / justify-content separa extremos */
   justify-content: space-between;
   align-items: center;
   height: 100%;
@@ -42,6 +51,7 @@ body {
 }
 
 .navbar {
+  /* display:flex organiza links em linha e justify-content distribui */
   width: 300px;
   display: flex;
   align-items: center;
@@ -60,6 +70,9 @@ body {
   margin: 0;
 }
 
+/* ==========================================
+   BANNER (HOME LEGADA)
+========================================== */
 /* BANNER */
 
 .banner {
@@ -86,6 +99,9 @@ body {
   font-weight: 800;
 }
 
+/* ==========================================
+   MISSÃO / VISÃO / VALORES
+========================================== */
 /* MISSÃO VISÃO VALORES */
 
 .social {
@@ -118,6 +134,9 @@ body {
   align-items: center;
 }
 
+/* ==========================================
+   RODAPÉ (FOOTER)
+========================================== */
 /* FOOTER */
 
 .footer {
@@ -137,6 +156,9 @@ body {
   font-size: 12px;
 }
 
+/* ==========================================
+   LOGIN LEGADO (AQUATECH)
+========================================== */
 /* LOGIN */
 
 .login {
@@ -152,6 +174,7 @@ body {
 }
 
 .card {
+  /* display:flex + flex-direction:column empilha os elementos do card */
   width: 50%;
   background-color: #e5e5e5;
   border-radius: 10px;
@@ -170,6 +193,7 @@ body {
 }
 
 .formulario {
+  /* width define largura interna dos campos dentro do card */
   display: flex;
   height: 90%;
   width: 80%;
@@ -235,6 +259,9 @@ body {
   display: none
 }
 
+/* ==========================================
+   FORMULÁRIO: CAMPOS E ALERTAS
+========================================== */
 /* FORMULARIO */
 
 .alerta_erro{
@@ -243,6 +270,7 @@ body {
 }
 
 .card_erro {
+  /* position: fixed prende o alerta na tela, mesmo com rolagem */
   display: none;
   background-color: #fff;
   color: black;
@@ -302,6 +330,9 @@ input {
   width: 50px;
 }
 
+/* ==========================================
+   SIMULADOR
+========================================== */
 /* SIMULADOR */
 
 .simulador {
@@ -309,11 +340,15 @@ input {
 }
 
 .simulador .container {
+  /* overflow: scroll cria rolagem interna para conteúdo maior */
   flex-direction: column;
   overflow: scroll; 
   height: var(--tamanho-simulador);
 }
 
+/* ==========================================
+   ALERTAS VISUAIS
+========================================== */
 /* ALERTA */
 
 #alerta {
@@ -323,6 +358,7 @@ input {
 }
 
 .mensagem-alarme {
+  /* display:flex ajuda a alinhar texto e ícone lado a lado */
   background-color: white;
   border-radius: 5px;
   width: 300px;

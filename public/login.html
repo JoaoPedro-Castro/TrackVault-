@@ -10,13 +10,13 @@
     <link rel="icon" href="assets/imagemLadoEsquerdoLogin.png">
     <link rel="stylesheet" href="./css/login.css">
 
-  
+
 </head>
 
 <body>
     <div class="container-login">
         <section class="lado-esquerdo">
-             <img src="assets/imagemLadoEsquerdoLogin.png" id="loading-gif">
+            <img src="assets/imagemLadoEsquerdoLogin.png" id="loading-gif">
         </section>
 
         <section class="lado-direito">
@@ -85,10 +85,9 @@
                         sessionStorage.EMAIL_USUARIO = json.email;
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.ID_USUARIO = json.id;
-                        sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
+                        sessionStorage.TIPO_USUARIO = json.tipo;
                         setTimeout(function () {
-                            window.location = "./dashboard/cards.html";
+                            window.location = "./index.html";
                         }, 1000);
 
                     });

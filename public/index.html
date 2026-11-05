@@ -12,6 +12,10 @@
 
 <body>
 
+  <!-- =======================================
+       CABEÇALHO
+       Logo e navegação principal da Home
+  ======================================== -->
   <header class="cabecalho">
 
     <a href="index.html" class="logo">
@@ -26,6 +30,10 @@
 
   </header>
 
+  <!-- =======================================
+       HERO (SEÇÃO INICIAL)
+       Apresentação principal + imagem do DJ
+  ======================================== -->
   <main class="inicio">
 
     <div class="texto-fundo texto-track">
@@ -63,16 +71,10 @@
         eletrônicas.
       </p>
 
-      <div class="busca-hero">
-        <input type="text" placeholder="Pesquisar track, artista ou gênero">
-        <button>Buscar</button>
-      </div>
-
-      <div class="generos-hero">
-        <a href="#">Tech House</a>
-        <a href="#">Techno</a>
-        <a href="#">Melodic Techno</a>
-        <a href="#">Progressive House</a>
+      <!-- Ações principais solicitadas: sem barra de busca -->
+      <div class="hero-acoes">
+        <a href="cadastro.html" class="botao-cta botao-cta-primario">Criar minha conta</a>
+        <a href="login.html" class="botao-cta botao-cta-secundario">Fazer login</a>
       </div>
     </section>
 
@@ -82,6 +84,9 @@
 
   </main>
 
+  <!-- =======================================
+       SEÇÃO: MAIS HYPADOS (MANTIDA)
+  ======================================== -->
   <section class="secao-hypados">
     <div class="topo-hypados">
       <h2>MAIS HYPADOS</h2>
@@ -132,8 +137,53 @@
     </div>
   </section>
 
+  <!-- =======================================
+       SEÇÃO: EXPLORE AS VERTENTES
+  ======================================== -->
+  <section class="secao-vertentes">
+    <div class="topo-vertentes">
+      <h2>EXPLORE AS VERTENTES</h2>
+      <p>Do Tech House ao Progressive House, encontre o som que move você.</p>
+    </div>
+
+    <div class="grade-vertentes">
+      <article class="card-vertente">
+        <div class="capa-vertente">
+          <img src="assets/djslot2.png" alt="Tech House">
+        </div>
+        <h3>TECH HOUSE</h3>
+      </article>
+
+      <article class="card-vertente">
+        <div class="capa-vertente">
+          <img src="assets/charlotte.jpg" alt="Techno">
+        </div>
+        <h3>TECHNO</h3>
+      </article>
+
+      <article class="card-vertente">
+        <div class="capa-vertente">
+          <img src="assets/keinemusicneon.jpg" alt="Melodic Techno">
+        </div>
+        <h3>MELODIC TECHNO</h3>
+      </article>
+
+      <article class="card-vertente">
+        <div class="capa-vertente">
+          <img src="assets/central.jpg" alt="Progressive House">
+        </div>
+        <h3>PROGRESSIVE HOUSE</h3>
+      </article>
+    </div>
+  </section>
+
+  
+
+  <!-- =======================================
+       SEÇÃO: CONHEÇA O TRACKVAULT
+  ======================================== -->
   <section class="secao-institucional" id="sobre">
-    <h2>MAIS QUE MÚSICA, UMA COMUNIDADE</h2>
+    <h2>CONHEÇA O TRACKVAULT</h2>
 
     <div class="blocos-institucional">
       <article class="bloco-inst">
@@ -147,11 +197,39 @@
       </article>
 
       <article class="bloco-inst">
-        <h3>CONECTE</h3>
-        <p>Explore a cultura da música eletrônica e fortaleça sua identidade sonora dentro da cena.</p>
+        <h3>POTENCIALIZE</h3>
+        <p>Desenvolva sua curadoria e amplie sua identidade sonora com uma experiência focada em evolução musical.</p>
       </article>
     </div>
   </section>
+
+
+  <!-- =======================================
+       BANNER DE CADASTRO
+  ======================================== -->
+  <section class="banner-cadastro">
+    <p class="banner-cadastro-selo">ENTRE PARA O TRACKVAULT</p>
+    <h2>Sua próxima track favorita está aqui.</h2>
+    <p>Crie sua conta e comece a construir sua biblioteca de música eletrônica.</p>
+    <a href="cadastro.html" class="banner-cadastro-botao">COMECE AGORA</a>
+  </section>
+
+
+  <!-- =======================================
+       FOOTER
+  ======================================== -->
+  <footer class="rodape-home">
+    <div class="rodape-logo">
+      <img src="assets/logo.png" alt="TrackVault">
+      <span>Música eletrônica sem limites.</span>
+    </div>
+
+    <div class="rodape-links">
+      <a href="index.html">Home</a>
+      <a href="cadastro.html">Cadastro</a>
+      <a href="login.html">Login</a>
+    </div>
+  </footer>
 
 </body>
 

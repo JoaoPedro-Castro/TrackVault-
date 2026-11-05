@@ -1,3 +1,6 @@
+/* ==========================================
+   CONFIGURAÇÕES GLOBAIS
+========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -5,11 +8,13 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Fundo geral da página */
 body {
     margin: 0;
     background-color: #0a0a0c;
 }
 
+/* CONTAINER PRINCIPAL: divide a tela em 2 colunas */
 .container-login {
     display: flex;
     width: 100%;
@@ -19,6 +24,7 @@ body {
 
 
 
+/* LADO ESQUERDO (branding com imagem) */
 .lado-esquerdo {
     width: 45%;
     height: 100vh;
@@ -35,6 +41,7 @@ body {
 }
 
 
+/* LADO DIREITO (área do formulário) */
 .lado-direito {
     width: 55%;
     height: 100vh;
@@ -47,6 +54,7 @@ body {
     padding: 24px;
 }
 
+/* Logo centralizada e com largura controlada */
 .logo-trackvault {
     width: 60%;
     max-width: 360px;
@@ -55,6 +63,7 @@ body {
     display: block;
 }
 
+/* Card principal de login */
 .card-login {
     width: 100%;
     max-width: 420px;
@@ -71,11 +80,13 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Bloco reservado para mensagem de erro */
 .alerta_erro {
     min-height: 24px;
     margin-bottom: 8px;
 }
 
+/* Mensagem de erro inicialmente oculta */
 .card_erro {
     display: none;
     color: #ff7d7d;
@@ -84,12 +95,14 @@ body {
     margin-bottom: 8px;
 }
 
+/* Formulário em coluna usando flex-direction */
 .formulario {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
+/* Inputs com contraste suave e borda sutil */
 .formulario input {
     width: 100%;
     min-height: 45px;
@@ -106,6 +119,7 @@ body {
     color: #a7a7a7;
 }
 
+/* Botão principal de ação */
 .botao {
     width: 100%;
     min-height: 45px;
@@ -119,11 +133,13 @@ body {
     transition: box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
+/* Hover do botão com brilho neon */
 .botao:hover {
     box-shadow: 0 0 15px #00E5FF;
     opacity: 0.96;
 }
 
+/* Container do loading (aparece via JS) */
 .loading-div {
     display: none;
     justify-content: center;
