@@ -2,307 +2,253 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
-
-    
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-    <!-- scripts do Chart.js - 2022-1 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    <title>TrackVault | Dashboard</title>
+    <link rel="icon" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/dashboard.css"> <!-- CSS próprio desta página -->
+    <script src="../js/sessao.js"></script> <!-- já existe: validarSessao() e limparSessao() -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js: já era usado no dashboard antigo; aqui só para a rosca -->
 </head>
 
-<!-- <body onload=" atualizarFeed()"> -->
+<!-- ao abrir: confere se está logado e busca os dados -->
+<body onload="validarSessao(), carregarDashboard()">
 
-<body>
+    <!--header inicio-->
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">TrackVault</h1>
+            <ul class="navbar">
+                <li class="agora"><a href="#">Dashboard</a></li>
+                <li><a href="../index.html">Início</a></li>
+                <li><button class="botao-sair" onclick="limparSessao()">Sair</button></li>
+            </ul>
+        </div>
+    </div>
+    <!--header fim-->
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
+    <div class="conteudo">
+        <h2 class="titulo-pagina">Olá, <span id="b_usuario">usuário</span>!</h2>
+        <p class="subtitulo">Descubra o que está em alta e as novidades do catálogo</p>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+        <!-- KPIs: 4 números principais -->
+        <div class="kpis">
+            <div class="card">
+                <span class="kpi-nome">Tracks no catálogo</span>
+                <span class="kpi-valor" id="kpi_tracks">-</span>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários e Terrários</h3>
-                </a>
+            <div class="card">
+                <span class="kpi-nome">Tracks novas (30 dias)</span>
+                <span class="kpi-valor" id="kpi_novas">-</span>
             </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
+            <div class="card">
+                <span class="kpi-nome">Produtores</span>
+                <span class="kpi-valor" id="kpi_produtores">-</span>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
+            <div class="card">
+                <span class="kpi-nome">Vertentes</span>
+                <span class="kpi-valor" id="kpi_vertentes">-</span>
             </div>
+        </div>
+        <p class="vazio" id="msg_resumo"></p> <!-- aparece só se der erro ao buscar os KPIs -->
 
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
+        <!-- Linha 1: tracks em alta e últimas adicionadas -->
+        <div class="linha">
+            <div class="card">
+                <h3>Tracks em alta</h3>
+                <p class="legenda">Mais acessadas nos últimos 7 dias</p>
+                <div id="lista_em_alta">Carregando...</div>
             </div>
-
+            <div class="card">
+                <h3>Últimas adicionadas</h3>
+                <p class="legenda">As novidades mais recentes do catálogo</p>
+                <div id="lista_ultimas">Carregando...</div>
+            </div>
         </div>
 
-        <div class="dash">
-            <div id="alerta">
+        <!-- Linha 2: produtores e vertentes -->
+        <div class="linha tres">
+            <div class="card">
+                <h3>Produtores com mais tracks</h3>
+                <p class="legenda">Quem mais tem músicas no TrackVault</p>
+                <div id="lista_top_produtores">Carregando...</div>
             </div>
-
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+            <div class="card">
+                <h3>Produtores mais acessados</h3>
+                <p class="legenda">Acessos nos últimos 7 dias</p>
+                <div id="lista_produtores_acessados">Carregando...</div>
             </div>
-            <div id="graficos">
+            <div class="card">
+                <h3>Tracks por vertente</h3>
+                <p class="legenda">Como o catálogo se divide</p>
+                <div class="grafico"><canvas id="grafico_vertentes"></canvas></div>
+                <p class="vazio" id="msg_vertentes"></p>
             </div>
         </div>
     </div>
 
+    <script>
+        // ===== BUSCAR DADOS =====
+        // Chama uma rota do servidor; se der certo manda o JSON para a função "desenhar"
+        function buscar(rota, idMensagem, desenhar) {
+            fetch(rota, { cache: "no-store" })
+                .then(function (resposta) {
+                    if (!resposta.ok) {
+                        throw new Error("status " + resposta.status);
+                    }
+                    return resposta.json();
+                })
+                .then(desenhar)
+                .catch(function (erro) {
+                    console.log("Erro em " + rota + ": " + erro);
+                    document.getElementById(idMensagem).innerHTML = '<p class="vazio">Não foi possível carregar.</p>';
+                });
+        }
 
+        function carregarDashboard() {
+            buscar("/painel/resumo", "msg_resumo", mostrarResumo);
+
+            buscar("/painel/em-alta", "lista_em_alta", function (lista) {
+                desenharTracks("lista_em_alta", lista, function (t) { return t.acessos + " acessos"; });
+            });
+
+            buscar("/painel/ultimas", "lista_ultimas", function (lista) {
+                desenharTracks("lista_ultimas", lista, function (t) { return limpar(t.vertente) + " · " + dataBR(t.data_cadastro); });
+            });
+
+            buscar("/painel/top-produtores", "lista_top_produtores", function (lista) {
+                desenharBarras("lista_top_produtores", lista, "tracks");
+            });
+
+            buscar("/painel/produtores-acessados", "lista_produtores_acessados", function (lista) {
+                desenharBarras("lista_produtores_acessados", lista, "acessos");
+            });
+
+            buscar("/painel/por-vertente", "msg_vertentes", desenharGraficoVertentes);
+        }
+
+        // ===== KPIs =====
+        function mostrarResumo(r) {
+            document.getElementById("kpi_tracks").innerHTML = r.totalTracks;
+            document.getElementById("kpi_novas").innerHTML = r.novasTracks;
+            document.getElementById("kpi_produtores").innerHTML = r.totalProdutores;
+            document.getElementById("kpi_vertentes").innerHTML = r.totalVertentes;
+        }
+
+        // ===== LISTA DE TRACKS (usada em "em alta" e "últimas") =====
+        function desenharTracks(idDiv, lista, textoDireita) {
+            var div = document.getElementById(idDiv);
+
+            if (lista.length == 0) {
+                div.innerHTML = '<p class="vazio">Nada por aqui ainda.</p>';
+                return;
+            }
+
+            var html = "";
+            for (var i = 0; i < lista.length; i++) {
+                var t = lista[i];
+                html += `
+                    <div class="item">
+                        <span class="posicao">${i + 1}</span>
+                        <div class="info">
+                            <strong>${limpar(t.track)}</strong>
+                            <small>${limpar(t.produtor)}</small>
+                        </div>
+                        <span class="detalhe">${textoDireita(t)}</span>
+                        ${botaoOuvir(t)}
+                    </div>`;
+            }
+            div.innerHTML = html;
+        }
+
+        // Botão "Ouvir": abre o link da track e avisa o servidor (para contar o acesso)
+        function botaoOuvir(t) {
+            if (t.link && t.link.startsWith("http")) { // só aceita link http/https
+                return `<a class="ouvir" href="${limpar(t.link)}" target="_blank" rel="noopener" onclick="registrarAcesso(${Number(t.id)})">Ouvir</a>`;
+            }
+            return "";
+        }
+
+        function registrarAcesso(idTrack) {
+            fetch(`/painel/acessar/${idTrack}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idUsuarioServer: sessionStorage.ID_USUARIO })
+            });
+        }
+
+        // ===== BARRAS (usada em "top produtores" e "produtores acessados") =====
+        // A lista chega do maior para o menor, então o primeiro é 100% da barra
+        function desenharBarras(idDiv, lista, unidade) {
+            var div = document.getElementById(idDiv);
+
+            if (lista.length == 0) {
+                div.innerHTML = '<p class="vazio">Nada por aqui ainda.</p>';
+                return;
+            }
+
+            var maior = lista[0].total;
+            var html = "";
+            for (var i = 0; i < lista.length; i++) {
+                var porcentagem = maior > 0 ? Math.round(lista[i].total / maior * 100) : 0;
+                html += `
+                    <div class="barra-linha">
+                        <div class="barra-texto">
+                            <span>${i + 1}. ${limpar(lista[i].nome)}</span>
+                            <strong>${lista[i].total} ${unidade}</strong>
+                        </div>
+                        <div class="barra-fundo">
+                            <div class="barra-cheia" style="width: ${porcentagem}%"></div>
+                        </div>
+                    </div>`;
+            }
+            div.innerHTML = html;
+        }
+
+        // ===== GRÁFICO DE ROSCA (tracks por vertente) =====
+        var graficoVertentes;
+
+        function desenharGraficoVertentes(lista) {
+            if (lista.length == 0 || typeof Chart == "undefined") {
+                document.getElementById("msg_vertentes").innerHTML = "Nada por aqui ainda.";
+                return;
+            }
+
+            var nomes = [];
+            var totais = [];
+            for (var i = 0; i < lista.length; i++) {
+                nomes.push(lista[i].nome);
+                totais.push(lista[i].total);
+            }
+
+            if (graficoVertentes != undefined) {
+                graficoVertentes.destroy(); // evita desenhar um gráfico em cima do outro
+            }
+
+            graficoVertentes = new Chart(document.getElementById("grafico_vertentes"), {
+                type: "doughnut",
+                data: {
+                    labels: nomes,
+                    datasets: [{
+                        data: totais,
+                        backgroundColor: ["#00E5FF", "#4C8DFF", "#9B6BFF", "#D26BFF", "#7A2CFF", "#00B8D4"],
+                        borderColor: "#0E1120"
+                    }]
+                },
+                options: { plugins: { legend: { labels: { color: "#EAF0FF" } } } }
+            });
+        }
+
+        // ===== AUXILIARES =====
+        // Troca < > & " por texto seguro (evita que um nome com HTML quebre a página)
+        function limpar(texto) {
+            return String(texto).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function dataBR(data) {
+            return new Date(data).toLocaleDateString("pt-BR");
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    let proximaAtualizacao;
-
-    window.onload = exibirAquariosDoUsuario();
-
-    function exibirAquariosDoUsuario() {
-        var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-        aquarios.forEach(item => {
-            document.getElementById("btnAquario").innerHTML += `
-            <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-            `
-
-            document.getElementById("graficos").innerHTML += `
-                <div id="grafico${item.id}" class="display-none">
-                    <h3 class="tituloGraficos">
-                        <span id="tituloAquario${item.id}">${item.descricao}</span>
-                    </h3>
-                    <div class="graph">
-                        <canvas id="myChartCanvas${item.id}"></canvas>
-                    </div>
-                    <div class="label-captura">
-                        <p id="avisoCaptura${item.id}" style="color: white"></p>
-                    </div>
-                </div>
-            `
-
-            obterDadosGrafico(item.id)
-        });
-
-        if (aquarios.length > 0) {
-            exibirAquario(aquarios[0].id)
-        }
-    }
-
-    function alterarTitulo(idAquario) {
-        var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-        tituloAquario.innerHTML = "Últimas medidas do <span style='color: #e6005a'>" + descricao + "</span>"
-    }
-
-    function exibirAquario(idAquario) {
-        let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
-
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idAquario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
-
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idAquario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
-
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-    }
-
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idAquario) {
-
-        alterarTitulo(idAquario)
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico(resposta, idAquario);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idAquario) {
-
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [
-            {
-                label: 'Temperatura',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.temperatura);
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idAquario}`),
-            config
-        );
-
-        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-    }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idAquario, dados, myChart) {
-
-
-
-        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    obterdados(idAquario);
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                    avisoCaptura.innerHTML = ""
-
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
-</script>

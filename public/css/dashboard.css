@@ -1,0 +1,281 @@
+/* ==========================================
+   CONFIGURAÇÕES GLOBAIS
+========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Cores e medidas usadas em toda a página */
+:root {
+    --fundo: #070911;
+    --card: rgba(14, 17, 32, 0.82);
+    --borda: rgba(130, 90, 255, 0.38);
+    --texto: #EAF0FF;
+    --texto-suave: #A9B6D6;
+    --texto-fraco: #8D9BC0;
+    --ciano: #00E5FF;
+    --roxo: #B35CFF;
+    --tamanho-header: 80px;
+}
+
+/* Fundo escuro com um brilho neon discreto */
+body {
+    min-height: 100vh;
+    color: var(--texto);
+    background:
+        radial-gradient(900px 500px at 8% -5%, rgba(0, 229, 255, 0.10), transparent 60%),
+        radial-gradient(900px 600px at 100% 100%, rgba(122, 44, 255, 0.16), transparent 60%),
+        var(--fundo);
+}
+
+/* ==========================================
+   CABEÇALHO (mesmo estilo do login/cadastro)
+========================================== */
+.header {
+    height: var(--tamanho-header);
+    border-bottom: 1px solid rgba(112, 125, 184, 0.35);
+    background-color: rgba(7, 9, 17, 0.92);
+}
+
+.header .container {
+    width: min(94%, 1200px);
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.titulo {
+    color: #f0f4ff;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.navbar {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #e6ecff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+}
+
+/* Página atual no menu */
+.agora a {
+    border-color: rgba(121, 44, 255, 0.72);
+    background: rgba(20, 18, 36, 0.8);
+}
+
+.botao-sair {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 125, 125, 0.5);
+    background: transparent;
+    color: #FF9C9C;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ==========================================
+   CONTEÚDO
+========================================== */
+.conteudo {
+    width: min(94%, 1200px);
+    margin: 0 auto;
+    padding: 32px 0 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Título com degradê ciano → roxo (igual ao "Entrar") */
+.titulo-pagina {
+    font-size: 34px;
+    color: transparent;
+    background: linear-gradient(90deg, var(--ciano), var(--roxo));
+    -webkit-background-clip: text;
+    background-clip: text;
+    width: fit-content;
+}
+
+.subtitulo {
+    margin-top: -14px;
+    color: var(--texto-suave);
+    font-size: 15px;
+}
+
+/* Caixa padrão: borda roxa neon e fundo translúcido */
+.card {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 0 24px rgba(120, 68, 255, 0.14);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.legenda {
+    font-size: 12px;
+    color: var(--texto-fraco);
+    margin-bottom: 14px;
+}
+
+/* Mensagem de "sem dados" ou "erro" */
+.vazio {
+    color: var(--texto-fraco);
+    font-size: 14px;
+}
+
+/* ==========================================
+   KPIs
+========================================== */
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+}
+
+.kpi-nome {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texto-fraco);
+}
+
+.kpi-valor {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--ciano);
+}
+
+/* ==========================================
+   LINHAS DE CARDS (se a tela for pequena, quebram sozinhas)
+========================================== */
+.linha {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.linha.tres {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* ==========================================
+   LISTA DE TRACKS
+========================================== */
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(112, 125, 184, 0.22);
+}
+
+.posicao {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(122, 44, 255, 0.25);
+    color: var(--ciano);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info strong {
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info small {
+    font-size: 13px;
+    color: var(--texto-suave);
+}
+
+.detalhe {
+    font-size: 13px;
+    color: var(--texto-suave);
+    text-align: right;
+}
+
+.ouvir {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 229, 255, 0.5);
+    color: #7FF3FF;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.ouvir:hover {
+    background: rgba(0, 229, 255, 0.12);
+}
+
+/* ==========================================
+   BARRAS (rankings de produtores)
+========================================== */
+.barra-linha {
+    margin-bottom: 16px;
+}
+
+.barra-texto {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.barra-fundo {
+    height: 8px;
+    border-radius: 999px;
+    background: #1A1F38;
+}
+
+/* A largura de cada barra é definida pelo JavaScript */
+.barra-cheia {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--ciano), var(--roxo));
+}
+
+/* ==========================================
+   GRÁFICO
+========================================== */
+.grafico {
+    max-width: 260px;
+    margin: 0 auto;
+}
