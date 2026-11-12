@@ -1,0 +1,256 @@
+/* ==========================================
+   CONFIGURAÇÕES GERAIS DA PÁGINA
+========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Variáveis de tamanho usadas no layout */
+:root {
+  --tamanho-header: 80px;
+  --tamanho-footer: 65px;
+}
+
+/* Fundo principal da página de cadastro */
+body.pagina-cadastro {
+  min-height: 100vh;
+  background-color: #070911;
+  background-image: url('../assets/globocadastro (1).png');
+  background-size: 58% auto;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+/* ==========================================
+   CABEÇALHO DA PÁGINA
+========================================== */
+.header {
+  height: var(--tamanho-header);
+  border-bottom: 1px solid rgba(112, 125, 184, 0.35);
+  background-color: rgba(7, 9, 17, 0.92);
+}
+
+/* Container interno do cabeçalho */
+.header .container {
+  width: min(92%, 1200px);
+  height: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo em texto */
+.titulo {
+  margin: 0;
+  color: #f0f4ff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* Menu de navegação */
+.navbar {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #aab7d8;
+}
+
+/* Links do menu */
+.header a {
+  text-decoration: none;
+  color: #e6ecff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+/* Link ativo da página atual */
+.agora a {
+  border-color: rgba(121, 44, 255, 0.72);
+  background: rgba(20, 18, 36, 0.8);
+}
+
+/* ==========================================
+   ÁREA DO FORMULÁRIO DE CADASTRO
+========================================== */
+.login {
+  min-height: calc(100vh - var(--tamanho-header) - var(--tamanho-footer));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 24px 6%;
+  background: transparent;
+}
+
+/* Container interno da seção login */
+.login .container {
+  width: min(100%, 1100px);
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Card base do formulário */
+.card {
+  width: min(100%, 460px);
+  background-color: rgba(11, 13, 24, 0.78);
+  border: 1px solid rgba(130, 90, 255, 0.55);
+  border-radius: 16px;
+  padding: 30px 26px;
+  color: #e9eeff;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.12),
+    0 0 24px rgba(120, 68, 255, 0.32);
+}
+
+/* Título principal */
+.card h2 {
+  color: transparent;
+  background: linear-gradient(90deg, #00E5FF 0%, #B35CFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 34px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Subtítulo abaixo do título */
+.subtitulo-cadastro {
+  color: #c1cce6;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+/* Área de campos do formulário */
+.formulario {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bloco individual de cada campo */
+.campo {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+}
+
+/* Texto de label dos campos */
+.campo span {
+  color: #dce6ff;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Inputs do cadastro */
+.formulario input {
+  min-height: 45px;
+  border: 1px solid rgba(112, 125, 184, 0.45);
+  border-radius: 12px;
+  background-color: rgba(15, 18, 31, 0.72);
+  color: #d6d6d6;
+  text-align: left;
+  padding: 10px 12px;
+  outline: none;
+}
+
+/* Placeholder dos campos */
+.formulario input::placeholder {
+  color: #9aa3ba;
+}
+
+/* Botão principal do cadastro */
+.botao {
+  width: 100%;
+  min-height: 45px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #7A2CFF 0%, #00E5FF 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+/* Efeito hover do botão */
+.botao:hover {
+  box-shadow: 0 0 18px rgba(112, 57, 255, 0.45);
+  opacity: 0.96;
+}
+
+/* ==========================================
+   ALERTAS E LOADING
+========================================== */
+.alerta_erro {
+  min-height: 24px;
+  margin-bottom: 8px;
+}
+
+/* Caixa de erro */
+.card_erro {
+  display: none;
+  color: #ff7d7d;
+  font-size: 13px;
+  text-align: space-between;
+  margin-bottom: 8px;
+}
+
+/* Container do carregamento */
+.loading-div {
+  width: 50px;
+  margin: 12px auto 0;
+  display: none;
+}
+
+/* Imagem do loading */
+.loading-div img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Área para mensagens de retorno */
+#div_erros_login {
+  margin-top: 10px;
+  color: #f0f0f0;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* ==========================================
+   RODAPÉ
+========================================== */
+.footer {
+  background-color: #090b14;
+  border-top: 1px solid rgba(88, 120, 220, 0.25);
+  min-height: var(--tamanho-footer);
+  display: flex;
+  align-items: center;
+}
+
+/* Container do rodapé */
+.footer .container {
+  width: min(92%, 1200px);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Texto do rodapé */
+.footer h4 {
+  color: #dce6ff;
+  font-size: 15px;
+}
