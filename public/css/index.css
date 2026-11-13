@@ -370,10 +370,11 @@ body::before {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
+    align-items: stretch;
 }
 
 .card-vertente {
-    height: 220px;
+    height: 230px;
     border: 1px solid rgba(112, 200, 255, 0.34);
     border-radius: 14px;
     overflow: hidden;
@@ -384,7 +385,7 @@ body::before {
 }
 
 .capa-vertente {
-    height: 170px;
+    height: 180px;
     overflow: hidden;
     border-bottom: 1px solid rgba(125, 104, 196, 0.32);
 }
@@ -393,7 +394,69 @@ body::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     display: block;
+}
+
+/* Espaço visual da seção "Sobre Nós" */
+.espaco-sobre { /* Seção institucional intermediária (globo + área de texto) */
+    min-height: 900px;
+    padding: 28px 4.5% 34px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    gap: 26px;
+    background:
+        radial-gradient(circle at 22% 50%, rgba(0, 217, 255, 0.14), transparent 46%),
+        radial-gradient(circle at 70% 36%, rgba(154, 64, 255, 0.16), transparent 45%),
+        linear-gradient(180deg, rgba(8, 14, 34, 0.45), rgba(7, 11, 25, 0.72));
+}
+
+/* Área do globo à esquerda */
+.espaco-sobre-globo { /* Coluna esquerda da seção (imagem principal) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Imagem principal do globo sem deformação */
+.espaco-sobre-globo img { /* Imagem globoIndex dentro da coluna esquerda */
+    width: 100%;
+    max-width: 780px;        /* Tamanho da imagem globo terretre na tela index */
+    max-height: 430px;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    filter:
+        drop-shadow(0 0 16px rgba(0, 215, 255, 0.25))
+        drop-shadow(0 0 20px rgba(128, 70, 255, 0.22));
+}
+
+/* Área reservada para texto institucional */
+.espaco-sobre-conteudo { /* Coluna direita da seção (conteúdo institucional) */
+    min-height: 260px;
+    border: 1px dashed rgba(124, 149, 210, 0.42);
+    border-radius: 14px;
+    padding: 22px 24px;
+    background: rgba(10, 16, 38, 0.45);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Placeholder do título da seção */
+.espaco-sobre-conteudo h2 {
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 2.1vw, 30px);
+    color: #dff4ff;
+}
+
+/* Placeholder do parágrafo institucional */
+.espaco-sobre-conteudo p {
+    color: #aebbd8;
+    line-height: 1.6;
 }
 
 .card-vertente h3 {
@@ -592,6 +655,26 @@ body::before {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .espaco-sobre { /* Seção institucional intermediária em tablet/mobile */
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 18px;
+        min-height: 0;
+        padding: 22px 14px 30px;
+    }
+
+    .espaco-sobre-globo img { /* Imagem principal centralizada em telas menores */
+        width: min(95%, 560px);
+        max-height: none;
+        height: auto;
+    }
+
+    .espaco-sobre-conteudo { /* Área de texto abaixo da imagem em telas menores */
+        width: min(100%, 620px);
+        min-height: 220px;
+    }
+
     .blocos-institucional {
         grid-template-columns: 1fr;
     }
@@ -661,6 +744,19 @@ body::before {
 
     .grade-vertentes {
         grid-template-columns: 1fr;
+    }
+
+    .espaco-sobre { /* Seção institucional intermediária em celular */
+        padding: 14px 14px 22px;
+    }
+
+    .espaco-sobre-globo img { /* Imagem ajustada para celular */
+        width: min(96%, 420px);
+    }
+
+    .espaco-sobre-conteudo { /* Área de texto ajustada para celular */
+        min-height: 160px;
+        padding: 14px;
     }
 
     .rodape-home {
